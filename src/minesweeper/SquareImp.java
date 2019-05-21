@@ -26,6 +26,10 @@ public class SquareImp implements Square {
 		return this.surroundingBombs;
 	}
 	
+	public void click() {
+		isClicked = true;
+	}
+	
 	public boolean isClicked() {
 		return this.isClicked;
 	}

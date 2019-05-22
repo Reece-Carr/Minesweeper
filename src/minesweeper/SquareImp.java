@@ -5,6 +5,15 @@ public class SquareImp implements Square {
 	private boolean bomb = false;
 	private int surroundingBombs = 0;
 	private boolean isClicked = false;
+	private Board gameBoard;
+	private int row;
+	private int column;
+	
+	public SquareImp(int row, int column, Board gameBoard) {
+		this.row = row;
+		this.column = column;
+		this.gameBoard = gameBoard;
+	}
 	
 	public void setBombTrue() {
 		this.bomb = true;
@@ -18,8 +27,42 @@ public class SquareImp implements Square {
 		return this.bomb;
 	}
 	
-	public void setSurroundingBombs(int surroundingBombs) {
-		this.surroundingBombs = surroundingBombs;
+	public void setSurroundingBombs() {
+		
+		surroundingBombs = 0;
+
+		if (row > 0 && gameBoard.getSquare(row - 1, column).isBomb()) {
+			surroundingBombs++;
+		} 
+		
+		if (row > 0 && gameBoard.getSquare(row - 1, column - 1).isBomb()) {
+			surroundingBombs++;
+		} 
+		
+		if (row > 0 && gameBoard.getSquare(row - 1, column + 1).isBomb()) {
+			surroundingBombs++;
+		} 
+		
+		if (row > 0 && gameBoard.getSquare(row, column - 1).isBomb()) {
+			surroundingBombs++;
+		}
+		
+		if (row > 0 && gameBoard.getSquare(row, column + 1).isBomb()) {
+			surroundingBombs++;
+		}
+		
+		if (row > 0 && gameBoard.getSquare(row + 1, column).isBomb()) {
+			surroundingBombs++;
+		}
+		
+		if (row > 0 && gameBoard.getSquare(row + 1, column - 1).isBomb()) {
+			surroundingBombs++;
+		}
+		
+		if (row > 0 && gameBoard.getSquare(row + 1, column + 1).isBomb()) {
+			surroundingBombs++;
+		}
+		
 	}
 	
 	public int getSurroundingBombs() {

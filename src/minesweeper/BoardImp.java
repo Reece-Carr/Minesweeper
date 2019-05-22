@@ -5,32 +5,64 @@ public class BoardImp implements Board {
 
 	private int boardLength;
 	private Square[][] grid;
+	private int numberOfBombs;
 	
 	public BoardImp(int boardLength) {
 		initialiseBoard(boardLength);
+		createInterface();
+		
 	}
 	
 	public void initialiseBoard(int boardLength) {
 		
 		//Create board of given size
-		setBoardLength(boardLength);
+		this.boardLength = boardLength;
 		this.grid = new Square[boardLength][boardLength];
 		
 		//randomise number of bombs to plant
 		int minBombs = boardLength;
 		int maxBombs = (int)Math.floor(boardLength * boardLength / 2);
-		int numberOfBombs = minBombs + (int)(Math.random() * ((maxBombs - minBombs) + 1));
+		numberOfBombs = minBombs + (int)(Math.random() * ((maxBombs - minBombs) + 1));
 		
+		//Initialise grid and setup bombs
+		initSquares();
 		setBombs(numberOfBombs);
+		updateSurroundingBombs();
 		
-	}
-	
-	private void setBoardLength(int boardLength) {
-		this.boardLength = boardLength;
 	}
 	
 	public Square getSquare(int row, int column) {
 		return this.grid[row][column];
+	}
+	
+	private void createInterface() {
+		
+	}
+	
+	private void initSquares() {
+		
+		for (int i = 0; i < boardLength; i++) {
+			
+			for (int j = 0; j < boardLength; j++) {
+				grid[i][j] = new SquareImp(i, j, this);
+			}
+			
+		}
+	}
+	
+	public int getNumberOfBombs() {
+		return this.numberOfBombs;
+	}
+	
+	private void updateSurroundingBombs() {
+		
+	    for (int i = 0; i < boardLength; i++) {
+
+			for (int j = 0; j < boardLength; j++) {
+				getSquare(i, j).setSurroundingBombs();
+			}
+			
+		}
 	}
 	
 	private void setBombs(int numberOfBombs) {

@@ -4,7 +4,7 @@ interface Square {
 
 	void setBombTrue();
 	void setBombFalse();
-	void setSurroundingBombs(int surroundingBombs);
+	void setSurroundingBombs();
 	void click();
 	boolean isBomb();
 	int getSurroundingBombs();

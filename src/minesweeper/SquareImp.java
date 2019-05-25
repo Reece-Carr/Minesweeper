@@ -30,36 +30,37 @@ public class SquareImp implements Square {
 	public void setSurroundingBombs() {
 		
 		surroundingBombs = 0;
-
+		int boardLength = gameBoard.getBoardLength();
+		
 		if (row > 0 && gameBoard.getSquare(row - 1, column).isBomb()) {
 			surroundingBombs++;
 		} 
 		
-		if (row > 0 && gameBoard.getSquare(row - 1, column - 1).isBomb()) {
+		if (row > 0 && column > 0 && gameBoard.getSquare(row - 1, column - 1).isBomb()) {
 			surroundingBombs++;
 		} 
 		
-		if (row > 0 && gameBoard.getSquare(row - 1, column + 1).isBomb()) {
+		if (row > 0 && column < boardLength - 1 && gameBoard.getSquare(row - 1, column + 1).isBomb()) {
 			surroundingBombs++;
 		} 
 		
-		if (row > 0 && gameBoard.getSquare(row, column - 1).isBomb()) {
+		if (column > 0 && gameBoard.getSquare(row, column - 1).isBomb()) {
 			surroundingBombs++;
 		}
 		
-		if (row > 0 && gameBoard.getSquare(row, column + 1).isBomb()) {
+		if (column < boardLength - 1 && gameBoard.getSquare(row, column + 1).isBomb()) {
 			surroundingBombs++;
 		}
 		
-		if (row > 0 && gameBoard.getSquare(row + 1, column).isBomb()) {
+		if (row < boardLength - 1 && gameBoard.getSquare(row + 1, column).isBomb()) {
 			surroundingBombs++;
 		}
 		
-		if (row > 0 && gameBoard.getSquare(row + 1, column - 1).isBomb()) {
+		if (row < boardLength - 1 && column > 0 && gameBoard.getSquare(row + 1, column - 1).isBomb()) {
 			surroundingBombs++;
 		}
 		
-		if (row > 0 && gameBoard.getSquare(row + 1, column + 1).isBomb()) {
+		if (row < boardLength - 1 && column < boardLength - 1 && gameBoard.getSquare(row + 1, column + 1).isBomb()) {
 			surroundingBombs++;
 		}
 		

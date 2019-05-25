@@ -1,11 +1,16 @@
 package minesweeper;
 import java.util.Random;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import java.awt.Color;
 
-public class BoardImp implements Board {
+public class BoardImp extends JFrame implements Board {
 
 	private int boardLength;
 	private Square[][] grid;
 	private int numberOfBombs;
+	private final int SQUARE_SIZE = 50;
 	
 	public BoardImp(int boardLength) {
 		initialiseBoard(boardLength);
@@ -29,6 +34,9 @@ public class BoardImp implements Board {
 		setBombs(numberOfBombs);
 		updateSurroundingBombs();
 		
+		//Create board graphic interface
+		createInterface();
+		
 	}
 	
 	public Square getSquare(int row, int column) {
@@ -36,7 +44,13 @@ public class BoardImp implements Board {
 	}
 	
 	private void createInterface() {
-		
+		getContentPane().setBackground(Color.WHITE);
+        setTitle("Minesweeper");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+        setResizable(false);
+        setSize(SQUARE_SIZE * boardLength, SQUARE_SIZE * boardLength);
+        getContentPane().setLayout(null);
 	}
 	
 	private void initSquares() {
@@ -52,6 +66,10 @@ public class BoardImp implements Board {
 	
 	public int getNumberOfBombs() {
 		return this.numberOfBombs;
+	}
+	
+	public int getBoardLength() {
+		return boardLength;
 	}
 	
 	private void updateSurroundingBombs() {

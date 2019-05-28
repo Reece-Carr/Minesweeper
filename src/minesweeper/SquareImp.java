@@ -1,13 +1,17 @@
 package minesweeper;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SquareImp implements Square {
 
 	private boolean bomb = false;
 	private int surroundingBombs = 0;
-	private boolean isClicked = false;
 	private Board gameBoard;
 	private int row;
 	private int column;
+	private JButton squareButton;
 	
 	public SquareImp(int row, int column, Board gameBoard) {
 		this.row = row;
@@ -71,10 +75,35 @@ public class SquareImp implements Square {
 	}
 	
 	public void click() {
-		isClicked = true;
+
+		String uncoveredImageURL;
+		
+		if (bomb) {
+			uncoveredImageURL = "src/images/9.png";
+			Icon uncoveredImage = new ImageIcon(uncoveredImageURL);
+			squareButton.setIcon(uncoveredImage);
+			gameBoard.getGame().endGame();
+		} else {
+			uncoveredImageURL = "src/images/" + Integer.toString(surroundingBombs) + ".png";
+			Icon uncoveredImage = new ImageIcon(uncoveredImageURL);
+			squareButton.setIcon(uncoveredImage);
+		}
+		
 	}
 	
-	public boolean isClicked() {
-		return this.isClicked;
+	public void disableButton() {
+		squareButton.setEnabled(false);;
+	}
+	
+	public void setButton(JButton squareButton) {
+		
+		this.squareButton = squareButton;
+		squareButton.addActionListener(new ActionListener() {
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        click();
+		    }
+		});
 	}
 }

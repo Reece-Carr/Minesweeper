@@ -3,7 +3,6 @@ import javax.swing.JOptionPane;
 
 public class Game {
 
-	private int score = 0;
 	boolean isGameOver = false;
 	private Board gameBoard;
 	
@@ -11,16 +10,6 @@ public class Game {
 		
 		int boardLength = getBoardLength();
 		setBoard(boardLength);
-		
-	}
-	
-	public void startGame() {
-		
-		while (isGameOver) {
-			//receive player commands and execute 
-		}
-		
-		endGame();
 		
 	}
 	
@@ -35,7 +24,7 @@ public class Game {
 	
 	private void quitGame() {
 		
-		int toQuit = JOptionPane.showConfirmDialog(null, "Do you want to proceed?", "Select an Option...",
+		int toQuit = JOptionPane.showConfirmDialog(null, "Do you want to quit?", "Select an Option...",
 				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
 		
 		if (toQuit == 0) {
@@ -45,36 +34,16 @@ public class Game {
 	}
 	
 	private void setBoard(int size) {
-		gameBoard = new BoardImp(size);
+		gameBoard = new BoardImp(size, this);
 	}
 	
-	private void endGame() {
+	public void endGame() {
 		
 		//Disable other user interactions
-		//
-		
+		gameBoard.disableButtons();
 		
 		JOptionPane.showMessageDialog(null, "Game Over");
-		
-	}
-	
-	private void clickSquare() {
-		
-		//private method calls for clicking squares, set row and column
-		// 0 for test purposes
-		int row = 0;
-		int column = 0;
-		
-		//method calls for clicking squares
-		Square clickedSquare = gameBoard.getSquare(row, column);
-		clickedSquare.click();
-		
-		if (clickedSquare.isBomb()) {
-			isGameOver = true;
-		} else {
-			score++;
-		}
-		
+		quitGame();
 	}
 	
 }

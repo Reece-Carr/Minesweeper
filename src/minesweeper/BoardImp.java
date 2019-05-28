@@ -1,20 +1,20 @@
 package minesweeper;
 import java.util.Random;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 
 public class BoardImp extends JFrame implements Board {
 
 	private int boardLength;
 	private Square[][] grid;
 	private int numberOfBombs;
-	private final int SQUARE_SIZE = 50;
+	private final int SQUARE_SIZE = 15;
+	private final Game minesweeperGame;
 	
-	public BoardImp(int boardLength) {
+	public BoardImp(int boardLength, Game minesweeperGame) {
+		this.minesweeperGame = minesweeperGame;
 		initialiseBoard(boardLength);
-		createInterface();
+		createGameScreen();
 		
 	}
 	
@@ -34,23 +34,42 @@ public class BoardImp extends JFrame implements Board {
 		setBombs(numberOfBombs);
 		updateSurroundingBombs();
 		
-		//Create board graphic interface
-		createInterface();
-		
 	}
 	
 	public Square getSquare(int row, int column) {
 		return this.grid[row][column];
 	}
 	
-	private void createInterface() {
+	private void createGameScreen() {
 		getContentPane().setBackground(Color.WHITE);
         setTitle("Minesweeper");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
         setResizable(false);
         setSize(SQUARE_SIZE * boardLength, SQUARE_SIZE * boardLength);
-        getContentPane().setLayout(null);
+        setLocationRelativeTo(null);
+        
+        Container boardPanel = this.getContentPane();
+        boardPanel.setLayout(new GridBagLayout());
+        
+        for (int i = 0; i < boardLength; i++) {
+        	for (int j = 0; j < boardLength; j++) {
+        		
+        		JButton gridButton = new JButton(new ImageIcon("src/images/10.png"));
+        		grid[i][j].setButton(gridButton);
+        		
+        		GridBagConstraints c = new GridBagConstraints();
+        		c.fill = GridBagConstraints.BOTH;
+                c.gridx = j;       
+                c.gridy = i;    
+                c.weightx = 1;
+                c.weighty = 1;
+                
+        		boardPanel.add(gridButton, c);
+        		
+        	}
+        }
+        
+        setVisible(true);
 	}
 	
 	private void initSquares() {
@@ -97,4 +116,18 @@ public class BoardImp extends JFrame implements Board {
 		}
 	}
 	
+	public void disableButtons() {
+		
+		for (int i = 0; i < boardLength; i++) {
+
+			for (int j = 0; j < boardLength; j++) {
+				getSquare(i, j).disableButton();
+			}
+			
+		}
+	}
+	
+	public Game getGame() {
+		return minesweeperGame;
+	}
 }

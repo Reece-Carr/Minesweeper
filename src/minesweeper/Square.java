@@ -1,4 +1,5 @@
 package minesweeper;
+import javax.swing.*;
 
 interface Square {
 
@@ -8,6 +9,7 @@ interface Square {
 	void click();
 	boolean isBomb();
 	int getSurroundingBombs();
-	boolean isClicked();
+	void setButton(JButton button);
+	void disableButton();
 	
 }
